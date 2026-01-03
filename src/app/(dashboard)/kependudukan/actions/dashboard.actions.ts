@@ -124,42 +124,42 @@ export async function getKependudukanStats() {
         totalMutasi,
         totalRumah,
       },
-      gender: genderStats.map((s) => ({
+      gender: genderStats.map((s: any) => ({
         name: formatLabel(s.jenisKelamin),
         value: s._count._all,
       })),
-      religion: religionStats.map((s) => ({
+      religion: religionStats.map((s: any) => ({
         name: formatLabel(s.agama),
         value: s._count._all,
       })),
       education: educationStats
         .filter((s) => s.pendidikan)
-        .map((s) => ({
+        .map((s: any) => ({
           name: formatLabel(s.pendidikan!),
           value: s._count._all,
         })),
       occupation: occupationStats
         .filter((s) => s.pekerjaan)
-        .map((s) => ({
+        .map((s: any) => ({
           name: formatLabel(s.pekerjaan!),
           value: s._count._all,
         })),
       maritalStatus: maritalStatusStats
         .filter((s) => s.statusKawin)
-        .map((s) => ({
+        .map((s: any) => ({
           name: formatLabel(s.statusKawin!),
           value: s._count._all,
         })),
       income: INCOME_ORDER.map((range) => ({
         name: INCOME_LABELS[range],
         value:
-          incomeStats.find((s) => s.penghasilanRange === range)?._count._all ||
-          0,
+          incomeStats.find((s: any) => s.penghasilanRange === range)?._count
+            ._all || 0,
       })),
       kkIncome: INCOME_ORDER.map((range) => ({
         name: INCOME_LABELS[range],
         value:
-          kkIncomeStats.find((s) => s.penghasilanRange === range)?._count
+          kkIncomeStats.find((s: any) => s.penghasilanRange === range)?._count
             ._all || 0,
       })),
       ageDistribution,
