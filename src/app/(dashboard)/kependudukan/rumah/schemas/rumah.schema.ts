@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { StatusRumah } from "@prisma/client";
+import { StatusRumah } from "@/types/prisma-enums";
 
 export const rumahSchema = z.object({
   nomor: z.string().min(1, "Nomor rumah wajib diisi"),

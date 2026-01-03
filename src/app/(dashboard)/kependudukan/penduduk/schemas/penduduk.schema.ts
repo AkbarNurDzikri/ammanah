@@ -10,7 +10,7 @@ import {
   MutasiJenis,
   Pendidikan,
   Pekerjaan,
-} from "@prisma/client";
+} from "@/types/prisma-enums";
 
 // Workaround for Zod nativeEnum deprecation and preserving literal types
 const getEnumValues = <T extends Record<string, string>>(e: T) =>

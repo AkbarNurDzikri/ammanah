@@ -8,7 +8,7 @@ import { Edit } from "lucide-react";
 import { DeleteButton } from "@/components/ui/delete-button";
 import { useGlobalModal } from "@/components/ui/global-modal";
 import RumahForm from "@/app/(dashboard)/kependudukan/rumah/components/rumah-form";
-import { StatusRumah } from "@prisma/client";
+import { StatusRumah } from "@/types/prisma-enums";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/useAuthStore";
 

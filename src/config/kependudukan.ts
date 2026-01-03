@@ -1,4 +1,4 @@
-import { PenghasilanRange } from "@prisma/client";
+import { PenghasilanRange } from "@/types/prisma-enums";
 
 export const INCOME_LABELS: Record<PenghasilanRange, string> = {
   DI_BAWAH_1JT: "< 1jt",
