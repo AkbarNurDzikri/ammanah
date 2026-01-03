@@ -18,7 +18,7 @@ function formatLabel(str: string) {
   return str
     .replace(/_/g, " ")
     .toLowerCase()
-    .replace(/\b\w/g, (l) => l.toUpperCase());
+    .replace(/\b\w/g, (l: string) => l.toUpperCase());
 }
 
 import { handleDbError } from "@/lib/db-error-handler";
@@ -133,30 +133,30 @@ export async function getKependudukanStats() {
         value: s._count._all,
       })),
       education: educationStats
-        .filter((s) => s.pendidikan)
+        .filter((s: any) => s.pendidikan)
         .map((s: any) => ({
           name: formatLabel(s.pendidikan!),
           value: s._count._all,
         })),
       occupation: occupationStats
-        .filter((s) => s.pekerjaan)
+        .filter((s: any) => s.pekerjaan)
         .map((s: any) => ({
           name: formatLabel(s.pekerjaan!),
           value: s._count._all,
         })),
       maritalStatus: maritalStatusStats
-        .filter((s) => s.statusKawin)
+        .filter((s: any) => s.statusKawin)
         .map((s: any) => ({
           name: formatLabel(s.statusKawin!),
           value: s._count._all,
         })),
-      income: INCOME_ORDER.map((range) => ({
+      income: INCOME_ORDER.map((range: PenghasilanRange) => ({
         name: INCOME_LABELS[range],
         value:
           incomeStats.find((s: any) => s.penghasilanRange === range)?._count
             ._all || 0,
       })),
-      kkIncome: INCOME_ORDER.map((range) => ({
+      kkIncome: INCOME_ORDER.map((range: PenghasilanRange) => ({
         name: INCOME_LABELS[range],
         value:
           kkIncomeStats.find((s: any) => s.penghasilanRange === range)?._count
