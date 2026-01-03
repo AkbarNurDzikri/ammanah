@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { DataTableColumn } from "@/components/ui/data-table/types";
-import { MutasiPenduduk, Penduduk } from "@prisma/client";
+import type { MutasiPenduduk, Penduduk } from "@prisma/client";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 

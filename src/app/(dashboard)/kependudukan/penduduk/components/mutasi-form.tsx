@@ -10,7 +10,7 @@ import {
 import { FormCombobox } from "@/components/ui/form-combobox";
 import { Button } from "@/components/ui/button";
 import { useMutasiForm } from "../hooks/use-mutasi-form";
-import { MutasiPenduduk } from "@prisma/client";
+import type { MutasiPenduduk } from "@prisma/client";
 
 interface MutasiFormProps {
   initialPendudukId?: string;

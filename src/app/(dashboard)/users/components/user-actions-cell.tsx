@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/store/useAuthStore";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { AssignRoleButton } from "./assign-role-button";
 import { ToggleActivateButton } from "./toggle-activate-button";
 

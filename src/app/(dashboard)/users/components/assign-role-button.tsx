@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useModalStore } from "@/store/useModalStore";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { Shield } from "lucide-react";
 import { UserRoleForm } from "./user-role-form";
 

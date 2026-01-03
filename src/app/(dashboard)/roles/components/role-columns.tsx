@@ -1,7 +1,7 @@
 "use client";
 
 import { DataTableColumn } from "@/components/ui/data-table";
-import { Role } from "@prisma/client";
+import type { Role } from "@prisma/client";
 import { RoleActionsCell } from "./role-actions-cell";
 
 export const getRoleColumns = (): DataTableColumn<Role>[] => [

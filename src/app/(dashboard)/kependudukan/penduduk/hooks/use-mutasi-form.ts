@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { mutasiSchema, MutasiSchema } from "../schemas/penduduk.schema";
 import { usePendudukMutation, usePendudukOptions } from "./use-penduduk";
 import { useGlobalModal } from "@/components/ui/global-modal";
-import { MutasiJenis, MutasiPenduduk } from "@prisma/client";
+import { MutasiJenis } from "@/types/prisma-enums";
+import type { MutasiPenduduk } from "@prisma/client";
 
 interface UseReturn {
   form: UseFormReturn<MutasiSchema>;

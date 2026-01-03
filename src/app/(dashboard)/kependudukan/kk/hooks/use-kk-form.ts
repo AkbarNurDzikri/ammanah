@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { kkSchema, KKSchema } from "../schemas/kk.schema";
 import { useKKMutation, useRumahOptions } from "./use-kk";
 import { useGlobalModal } from "@/components/ui/global-modal";
-import { KK } from "@prisma/client";
+import type { KK } from "@prisma/client";
 
 export function useKKForm(initialData?: KK): {
   form: UseFormReturn<KKSchema>;

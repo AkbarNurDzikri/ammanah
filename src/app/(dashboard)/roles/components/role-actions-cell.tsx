@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/store/useAuthStore";
-import { Role } from "@prisma/client";
+import type { Role } from "@prisma/client";
 import { RoleManageButton } from "./role-manage-button";
 import { DeleteButton } from "@/components/ui/delete-button";
 

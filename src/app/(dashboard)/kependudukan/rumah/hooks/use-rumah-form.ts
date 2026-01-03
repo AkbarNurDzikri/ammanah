@@ -6,7 +6,7 @@ import { rumahSchema, RumahSchema } from "../schemas/rumah.schema";
 import { useRumahMutation, useGangOptions } from "./use-rumah";
 import { useGlobalModal } from "@/components/ui/global-modal";
 import { RumahWithRelations } from "../types";
-import { StatusRumah } from "@prisma/client";
+import { StatusRumah } from "@/types/prisma-enums";
 
 export function useRumahForm(initialData?: RumahWithRelations): {
   form: UseFormReturn<RumahSchema>;

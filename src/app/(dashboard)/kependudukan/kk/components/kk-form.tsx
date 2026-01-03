@@ -10,7 +10,7 @@ import {
 import { FormCombobox } from "@/components/ui/form-combobox";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { KK } from "@prisma/client";
+import type { KK } from "@prisma/client";
 import { useKKForm } from "../hooks/use-kk-form";
 
 interface KKFormProps {

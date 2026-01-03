@@ -1,7 +1,7 @@
 "use client";
 
 import { DataTableColumn } from "@/components/ui/data-table";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { UserActionsCell } from "./user-actions-cell";
 
 export const getUserColumns = (): DataTableColumn<User>[] => [

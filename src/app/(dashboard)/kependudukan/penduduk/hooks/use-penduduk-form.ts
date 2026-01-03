@@ -15,7 +15,7 @@ import {
   PenghasilanRange,
   Pendidikan,
   StatusPenduduk,
-} from "@prisma/client";
+} from "@/types/prisma-enums";
 import { PEKERJAAN_OPTIONS } from "@/config/kependudukan";
 
 export function usePendudukForm(initialData?: PendudukWithRelations): {

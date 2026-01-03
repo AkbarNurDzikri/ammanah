@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Role } from "@prisma/client";
+import type { Role } from "@prisma/client";
 import { toast } from "sonner";
 import { getRoleWithPermissionsAction } from "../actions/get-role-with-permissions.action";
 import { useModalStore } from "@/store/useModalStore";
