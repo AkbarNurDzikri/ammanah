@@ -46,7 +46,7 @@ export async function registerAction(formData: FormData) {
         // Assign all permissions to super admin
         const allPerms = await prisma.permission.findMany();
         await prisma.rolePermission.createMany({
-          data: allPerms.map((p) => ({
+          data: allPerms.map((p: { id: string }) => ({
             roleId: superAdminRole!.id,
             permissionId: p.id,
           })),
