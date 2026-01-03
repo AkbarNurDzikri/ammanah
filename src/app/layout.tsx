@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ammanah",
-  description: "Aplikasi Manajemen Masjid Navigasi Amal Harian",
+  title: "AMMANAH AL-AKBAR",
+  description:
+    "AMMANAH (Aplikasi Manajemen Masjid: Navigasi Amal Harian) is a custom-built app for Masjid Al-Akbar to manage mosque activities, daily donations, and community services in one place.",
 };
 
 export default function RootLayout({
