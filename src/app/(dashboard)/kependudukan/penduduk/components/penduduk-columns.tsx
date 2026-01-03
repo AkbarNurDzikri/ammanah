@@ -10,7 +10,7 @@ import { useGlobalModal } from "@/components/ui/global-modal";
 import PendudukForm from "./penduduk-form";
 import PendudukDetails from "./penduduk-details";
 import MutasiForm from "./mutasi-form";
-import { StatusPenduduk, JenisKelamin } from "@prisma/client";
+import { StatusPenduduk, JenisKelamin } from "@/types/prisma-enums";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/useAuthStore";
 
