@@ -1,0 +1,305 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String     @unique
+  password      String
+  emailVerified DateTime?
+  image         String?
+  isActive      Boolean    @default(false)
+  lastLogin     DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  roles         UserRole[]
+
+  // Auditing
+  createdGang     Gang[]           @relation("GangCreatedBy")
+  updatedGang     Gang[]           @relation("GangUpdatedBy")
+  createdRumah    Rumah[]          @relation("RumahCreatedBy")
+  updatedRumah    Rumah[]          @relation("RumahUpdatedBy")
+  createdKK       KK[]             @relation("KKCreatedBy")
+  updatedKK       KK[]             @relation("KKUpdatedBy")
+  createdPenduduk Penduduk[]       @relation("PendudukCreatedBy")
+  updatedPenduduk Penduduk[]       @relation("PendudukUpdatedBy")
+  createdMutasi   MutasiPenduduk[] @relation("MutasiCreatedBy")
+  updatedMutasi   MutasiPenduduk[] @relation("MutasiUpdatedBy")
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  permissions RolePermission[]
+  users       UserRole[]
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  roles       RolePermission[]
+}
+
+model UserRole {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  roleId String
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId       String
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  permissionId String
+
+  @@id([roleId, permissionId])
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([email, token])
+}
+
+// --- Kependudukan Models ---
+
+model Gang {
+  id          String    @id @default(cuid())
+  nama        String    @unique
+  keterangan  String?
+  ketuaGangId String?   @unique
+  ketuaGang   Penduduk? @relation("KetuaGang", fields: [ketuaGangId], references: [id], onDelete: Restrict)
+
+  rumah Rumah[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("GangCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("GangUpdatedBy", fields: [updatedById], references: [id])
+}
+
+model Rumah {
+  id         String      @id @default(cuid())
+  nomor      String      @unique
+  gangId     String
+  gang       Gang        @relation(fields: [gangId], references: [id], onDelete: Restrict)
+  status     StatusRumah @default(DIHUNI)
+  keterangan String?
+
+  kk KK[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("RumahCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("RumahUpdatedBy", fields: [updatedById], references: [id])
+}
+
+model KK {
+  id      String  @id @default(cuid())
+  nomorKK String  @unique
+  rumahId String
+  rumah   Rumah   @relation(fields: [rumahId], references: [id], onDelete: Restrict)
+  alamat  String? // Alamat lengkap sesuai KK jika berbeda
+
+  penduduk Penduduk[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("KKCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("KKUpdatedBy", fields: [updatedById], references: [id])
+}
+
+model Penduduk {
+  id               String            @id @default(cuid())
+  nik              String            @unique
+  nama             String
+  tempatLahir      String?
+  tanggalLahir     DateTime?
+  jenisKelamin     JenisKelamin
+  golonganDarah    GolonganDarah?
+  agama            Agama
+  pendidikan       Pendidikan?
+  pekerjaan        String?
+  statusKawin      StatusKawin?
+  hubunganKeluarga HubunganKeluarga
+  penghasilan      Decimal?          @db.Decimal(15, 2)
+  penghasilanRange PenghasilanRange?
+
+  ayahKandung String?
+  ibuKandung  String?
+
+  // Domisili
+  isKtpSesuaiDomisili Boolean @default(true)
+  alamatKtp           String?
+
+  kkId String?
+  kk   KK?     @relation(fields: [kkId], references: [id], onDelete: Restrict)
+
+  status StatusPenduduk @default(AKTIF)
+
+  // Relations
+  ketuaGang Gang?            @relation("KetuaGang")
+  mutasi    MutasiPenduduk[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("PendudukCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("PendudukUpdatedBy", fields: [updatedById], references: [id])
+}
+
+model MutasiPenduduk {
+  id         String      @id @default(cuid())
+  pendudukId String
+  penduduk   Penduduk    @relation(fields: [pendudukId], references: [id], onDelete: Restrict)
+  jenis      MutasiJenis
+  tanggal    DateTime    @default(now())
+  alasan     String?
+  keterangan String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("MutasiCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("MutasiUpdatedBy", fields: [updatedById], references: [id])
+}
+
+enum StatusRumah {
+  KOSONG
+  DIHUNI
+  DIKONTRAKKAN
+  RENOVASI
+  LAINNYA
+}
+
+enum JenisKelamin {
+  LAKI_LAKI
+  PEREMPUAN
+}
+
+enum Pendidikan {
+  TIDAK_SEKOLAH
+  SD
+  SMP
+  SMA
+  D1
+  D2
+  D3
+  D4_S1
+  S2
+  S3
+}
+
+enum Pekerjaan {
+  TIDAK_BEKERJA
+  PNS
+  TNI_POLRI
+  KARYAWAN_SWASTA
+  WIRASWASTA
+  BURUH
+  PETANI_NELAYAN
+  PELAJAR_MAHASISWA
+  IBU_RUMAH_TANGGA
+  PENSIUNAN
+  LAINNYA
+}
+
+enum GolonganDarah {
+  A_POSITIF
+  A_NEGATIF
+  B_POSITIF
+  B_NEGATIF
+  AB_POSITIF
+  AB_NEGATIF
+  O_POSITIF
+  O_NEGATIF
+  TIDAK_TAHU
+}
+
+enum Agama {
+  ISLAM
+  KRISTEN
+  KATOLIK
+  HINDU
+  BUDHA
+  KONGHUCU
+}
+
+enum HubunganKeluarga {
+  KEPALA_KELUARGA
+  ISTRI
+  ANAK
+  MENANTU
+  CUCU
+  ORANG_TUA
+  MERTUA
+  FAMILI_LAIN
+  PEMBANTU
+  LAINNYA
+}
+
+enum StatusKawin {
+  BELUM_KAWIN
+  KAWIN
+  CERAI_HIDUP
+  CERAI_MATI
+}
+
+enum PenghasilanRange {
+  DI_BAWAH_1JT
+  SATU_SAMPAI_3JT
+  TIGA_SAMPAI_5JT
+  LIMA_SAMPAI_10JT
+  DI_ATAS_10JT
+}
+
+enum StatusPenduduk {
+  AKTIF
+  PINDAH
+  MENINGGAL
+}
+
+enum MutasiJenis {
+  PINDAH_DATANG
+  PINDAH_KELUAR
+  PINDAH_INTERNAL
+  MENINGGAL
+  LAHIR
+}
