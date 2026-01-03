@@ -90,7 +90,7 @@ export async function getKependudukanStats() {
     });
 
     const now = new Date();
-    const ages = penduduk.map((p) => {
+    const ages = penduduk.map((p: { tanggalLahir: Date | null }) => {
       if (!p.tanggalLahir) return 0;
       const age = now.getFullYear() - p.tanggalLahir.getFullYear();
       const m = now.getMonth() - p.tanggalLahir.getMonth();
