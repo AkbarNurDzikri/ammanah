@@ -12,7 +12,7 @@ import {
   StatusPenduduk,
   PenghasilanRange,
   HubunganKeluarga,
-} from "@prisma/client";
+} from "@/types/prisma-enums";
 
 function formatLabel(str: string) {
   return str
