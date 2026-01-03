@@ -1,4 +1,5 @@
-import { Penduduk, KK, MutasiPenduduk, MutasiJenis } from "@prisma/client";
+import type { Penduduk, KK, MutasiPenduduk } from "@prisma/client";
+import { MutasiJenis } from "@/types/prisma-enums";
 
 export type PendudukWithRelations = Penduduk & {
   kk?: (KK & { rumah: { gang: { nama: string }; nomor: string } }) | null;

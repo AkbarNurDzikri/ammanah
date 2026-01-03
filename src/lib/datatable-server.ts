@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { verifyPermission } from "./rbac";
 import { PermissionName } from "@/config/permissions";
 import { INCOME_LABELS } from "@/config/kependudukan";
-import { PenghasilanRange } from "@prisma/client";
+import { PenghasilanRange } from "@/types/prisma-enums";
 
 function buildWhereClause(searchField: string, searchValue: string) {
   const parts = searchField.split(".");

@@ -1,4 +1,4 @@
-import { Gang, Penduduk } from "@prisma/client";
+import type { Gang, Penduduk } from "@prisma/client";
 
 export type GangWithRelations = Gang & {
   ketuaGang?: Penduduk | null;

@@ -11,7 +11,8 @@ import { verifyPermission } from "@/lib/rbac";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/session";
 
-import { Prisma, StatusPenduduk } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { StatusPenduduk } from "@/types/prisma-enums";
 
 async function getUserId() {
   const session = await getSession();

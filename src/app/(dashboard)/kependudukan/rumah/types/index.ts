@@ -1,4 +1,4 @@
-import { Rumah, Gang, KK } from "@prisma/client";
+import type { Rumah, Gang, KK } from "@prisma/client";
 
 export type RumahWithRelations = Rumah & {
   gang: Gang;
