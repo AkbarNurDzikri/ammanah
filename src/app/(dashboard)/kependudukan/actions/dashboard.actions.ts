@@ -113,7 +113,8 @@ export async function getKependudukanStats() {
 
     const ageDistribution = ageBins.map((bin) => ({
       name: bin.label,
-      value: ages.filter((age) => age >= bin.min && age <= bin.max).length,
+      value: ages.filter((age: number) => age >= bin.min && age <= bin.max)
+        .length,
     }));
 
     return {
