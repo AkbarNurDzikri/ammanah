@@ -8,7 +8,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL || "https://ammanah-map.vercel.app";
 const APP_NAME = "AMMANAH";
 
 export async function sendVerificationEmail(email: string, token: string) {
